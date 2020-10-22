@@ -22,6 +22,7 @@ const useStyles = createUseStyles((theme) => ({
     fontWeight: '400',
     fontSize: '26px',
     paddingLeft: '.5rem',
+    letterSpacing: '.1rem',
     color: ({ theme }) => theme.primaryTextColor,
   },
   left: {
@@ -39,8 +40,8 @@ const useStyles = createUseStyles((theme) => ({
       right: '.4rem',
       left: '.4rem',
     },
+    letterSpacing: '.09rem',
     '&:hover': {
-      // textDecoration: 'underline',
       color: ({ theme }) => theme.primaryColor,
     },
     transition: 'all 200ms ease',
@@ -56,9 +57,9 @@ export const FullsizeNav = () => {
   const [active, setActive] = useState('');
   const theme = useTheme();
   const classes = useStyles({ theme });
-  const handleActive = (id: string) => {
+  const handleActive = (name: string) => {
     menuItems.forEach((item) => {
-      if (item.id === id) {
+      if (item.name === name) {
         setActive(item.name);
       }
     });
@@ -66,14 +67,21 @@ export const FullsizeNav = () => {
   return (
     <div className={classes.fullsizeNav}>
       <div className={classes.left}>
-        <img className={classes.logo} src={logo} alt="Logo" />
+        <Link
+          onClick={() => {
+            handleActive('Home');
+          }}
+          to="/"
+        >
+          <img className={classes.logo} src={logo} alt="Logo" />
+        </Link>
         <h1 className={classes.header}>ayoga a&amp;e</h1>
       </div>
       <ul className={classes.list}>
         {menuItems.map((x) => {
           return (
             <Link
-              onClick={() => handleActive(x.id)}
+              onClick={() => handleActive(x.name)}
               className={active === x.name ? classes.activeLink : classes.link}
               to={x.path}
               key={x.id}
