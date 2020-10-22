@@ -10,12 +10,16 @@
     "@types/node": "^12.12.68",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.6",
+    "@types/uuid": "^8.3.0",
     "fontsource-ubuntu": "^3.0.9",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-jss": "^10.4.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "uuid": "^8.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
