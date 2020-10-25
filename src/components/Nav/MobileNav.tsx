@@ -1,8 +1,14 @@
-import React from 'react';
-import bars from '../assets/bars.svg';
+import React, { useState } from 'react';
 import logo from '../assets/logo2.svg';
 
+import { Link } from 'react-router-dom';
+
 import { createUseStyles, useTheme } from 'react-jss';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+
+import { BurgerMenu } from './BurgerMenu';
 
 const useStyles = createUseStyles((theme) => ({
   mobileNav: {
@@ -13,7 +19,6 @@ const useStyles = createUseStyles((theme) => ({
     justifyContent: 'space-between',
   },
   bars: {
-    height: '16px',
     '&:hover': {
       cursor: 'pointer',
     },
@@ -28,16 +33,35 @@ const useStyles = createUseStyles((theme) => ({
     letterSpacing: '.1rem',
     color: ({ theme }) => theme.primaryTextColor,
   },
+  burgerMenu: {
+    position: 'absolute',
+    top: '76px',
+  },
 }));
 
 export const MobileNav = () => {
   const theme = useTheme();
   const classes = useStyles({ theme });
+  const [showBurgermenu, setShowBurgermenu] = useState(false);
   return (
     <div className={classes.mobileNav}>
-      <img className={classes.logo} src={logo} alt="Logo" />
+      <Link to="/">
+        <img className={classes.logo} src={logo} alt="Logo" />
+      </Link>
       <h1 className={classes.header}>A&amp;E</h1>
-      <img className={classes.bars} src={bars} alt="Hamburger-menu" />
+      <FontAwesomeIcon
+        onClick={() => setShowBurgermenu(!showBurgermenu)}
+        icon={faBars}
+        size="lg"
+        className={classes.bars}
+        color="#2E3D49"
+      />
+      {showBurgermenu && (
+        <BurgerMenu
+          showBurgermenu={showBurgermenu}
+          setShowBurgermenu={setShowBurgermenu}
+        />
+      )}
     </div>
   );
 };
