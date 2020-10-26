@@ -12,6 +12,8 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 const useStyles = createUseStyles((theme) => ({
   fullsizeNav: {
     width: '100%',
+    maxWidth: '1180px',
+    margin: 'auto',
     height: '100%',
     display: 'flex',
     alignItems: 'center',
@@ -129,7 +131,7 @@ export const FullsizeNav = () => {
                           <li className={classes.submenuLi} key={item.id}>
                             <Link
                               className={classes.submenuLink}
-                              to={item.path}
+                              to={{ pathname: item.path, hash: item.hash }}
                             >
                               {item.name}
                             </Link>

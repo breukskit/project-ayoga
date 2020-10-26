@@ -1,5 +1,5 @@
 import React from 'react';
 
 export const Home = () => {
-  return <div>I Am Home!</div>;
+  return <div style={{ marginTop: '96px' }}>I Am Home!</div>;
 };

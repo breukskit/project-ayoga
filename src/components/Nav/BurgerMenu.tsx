@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ import { createUseStyles, useTheme } from 'react-jss';
 
 import { menuItems, methodsSub } from './menuItems';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = createUseStyles((theme) => ({
   burgerMenu: {
@@ -28,7 +28,69 @@ const useStyles = createUseStyles((theme) => ({
     },
   },
   list: {
-    marginTop: '1rem',
+    marginTop: '2rem',
+  },
+  listItem: {
+    position: 'relative',
+    borderBottom: '1px solid rgba(0,0,0,0.14)',
+    '&:nth-child(5)': {
+      borderBottom: 'none',
+    },
+  },
+  link: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    textTransform: 'uppercase',
+    width: '100%',
+    height: '100%',
+    padding: {
+      top: '1rem',
+      left: '1rem',
+      bottom: '.5rem',
+      right: '1rem',
+    },
+    color: ({ theme }) => theme.primaryTextColor,
+    '&:hover': {
+      cursor: 'pointer',
+      background: '#eee',
+    },
+  },
+  specialLink: {
+    extend: 'link',
+    borderBottom: ({ showMethodsSub }) =>
+      showMethodsSub ? '1px solid rgba(0,0,0,0.14)' : '',
+    color: '#2E3D49',
+  },
+  // '&:hover': {
+  //   cursor: 'pointer',
+  //   background: '#eee',
+  // },
+  trigger: {
+    position: 'absolute',
+    right: '0',
+    top: '0px',
+    borderLeft: '1px solid rgba(0,0,0,0.14)',
+    padding: {
+      top: '1rem',
+      left: '1rem',
+      bottom: '.5rem',
+      right: '1rem',
+    },
+    '&:hover': {
+      cursor: 'pointer',
+      background: '#eee',
+    },
+  },
+  sublistItem: {
+    borderBottom: '1px solid rgba(0,0,0,0.14)',
+    '&:nth-child(7)': {
+      borderBottom: 'none',
+    },
+  },
+  sublistLink: {
+    extend: 'link',
+    paddingLeft: '2rem',
+    color: ({ theme }) => theme.primaryTextColor,
   },
 }));
 
@@ -38,8 +100,9 @@ interface Props {
 }
 
 export const BurgerMenu = ({ showBurgermenu, setShowBurgermenu }: Props) => {
+  const [showMethodsSub, setShowMethodsSub] = useState(false);
   const theme = useTheme();
-  const classes = useStyles({ theme });
+  const classes = useStyles({ theme, showMethodsSub });
   return (
     <div className={classes.burgerMenu}>
       <FontAwesomeIcon
@@ -52,8 +115,40 @@ export const BurgerMenu = ({ showBurgermenu, setShowBurgermenu }: Props) => {
       <ul className={classes.list}>
         {menuItems.map((item) => {
           return (
-            <li key={item.id} onClick={() => setShowBurgermenu(false)}>
-              <Link to={item.path}>{item.name}</Link>
+            <li className={classes.listItem} key={item.id}>
+              <Link
+                className={item.hasSubMenu ? classes.specialLink : classes.link}
+                to={item.path}
+                onClick={() => setShowBurgermenu(false)}
+              >
+                {item.name}
+              </Link>
+              {item.hasSubMenu ? (
+                <span
+                  className={classes.trigger}
+                  onClick={() => setShowMethodsSub(!showMethodsSub)}
+                >
+                  <FontAwesomeIcon icon={faChevronDown} />
+                </span>
+              ) : null}
+              {item.hasSubMenu && showMethodsSub ? (
+                <ul>
+                  {' '}
+                  {methodsSub.map((x) => {
+                    return (
+                      <li className={classes.sublistItem} key={x.id}>
+                        <Link
+                          className={classes.sublistLink}
+                          onClick={() => setShowBurgermenu(false)}
+                          to={{ pathname: x.path, hash: x.hash }}
+                        >
+                          {x.name}
+                        </Link>
+                      </li>
+                    );
+                  })}{' '}
+                </ul>
+              ) : null}
             </li>
           );
         })}

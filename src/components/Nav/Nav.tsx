@@ -6,11 +6,14 @@ import { MobileNav } from './MobileNav';
 
 const useStyles = createUseStyles((theme) => ({
   nav: {
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    width: '100%',
+    background: '#fff',
     display: 'flex',
     alignItems: 'center',
-    maxWidth: '1180px',
     minHeight: '96px',
-    margin: 'auto',
     padding: '1rem',
     '@media(max-width: 766px)': {
       minHeight: '76px',
