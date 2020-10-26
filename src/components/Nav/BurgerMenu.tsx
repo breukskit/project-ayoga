@@ -8,6 +8,10 @@ import { menuItems, methodsSub } from './menuItems';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
+import { CSSTransition } from 'react-transition-group';
+
+import './animation.css';
+
 const useStyles = createUseStyles((theme) => ({
   burgerMenu: {
     position: 'fixed',
@@ -61,10 +65,6 @@ const useStyles = createUseStyles((theme) => ({
       showMethodsSub ? '1px solid rgba(0,0,0,0.14)' : '',
     color: '#2E3D49',
   },
-  // '&:hover': {
-  //   cursor: 'pointer',
-  //   background: '#eee',
-  // },
   trigger: {
     position: 'absolute',
     right: '0',
@@ -101,6 +101,16 @@ interface Props {
 
 export const BurgerMenu = ({ showBurgermenu, setShowBurgermenu }: Props) => {
   const [showMethodsSub, setShowMethodsSub] = useState(false);
+  const [menuHeight, setMenuHeight] = useState<null | number>(null);
+
+  const calcHeight = (el: HTMLElement) => {
+    const height = el.offsetHeight;
+    setMenuHeight(height);
+  };
+
+  const exit = () => {
+    setMenuHeight(0);
+  };
   const theme = useTheme();
   const classes = useStyles({ theme, showMethodsSub });
   return (
@@ -128,27 +138,44 @@ export const BurgerMenu = ({ showBurgermenu, setShowBurgermenu }: Props) => {
                   className={classes.trigger}
                   onClick={() => setShowMethodsSub(!showMethodsSub)}
                 >
-                  <FontAwesomeIcon icon={faChevronDown} />
+                  <FontAwesomeIcon
+                    icon={faChevronDown}
+                    rotation={showMethodsSub ? 180 : undefined}
+                  />
                 </span>
               ) : null}
-              {item.hasSubMenu && showMethodsSub ? (
-                <ul>
-                  {' '}
-                  {methodsSub.map((x) => {
-                    return (
-                      <li className={classes.sublistItem} key={x.id}>
-                        <Link
-                          className={classes.sublistLink}
-                          onClick={() => setShowBurgermenu(false)}
-                          to={{ pathname: x.path, hash: x.hash }}
-                        >
-                          {x.name}
-                        </Link>
-                      </li>
-                    );
-                  })}{' '}
-                </ul>
-              ) : null}
+
+              {item.hasSubMenu && (
+                <div
+                  className="dropdown-container"
+                  style={{ height: menuHeight! }}
+                >
+                  <CSSTransition
+                    in={showMethodsSub}
+                    unmountOnExit
+                    classNames="submenu"
+                    timeout={300}
+                    onEnter={calcHeight}
+                    onExit={exit}
+                  >
+                    <ul>
+                      {methodsSub.map((x) => {
+                        return (
+                          <li className={classes.sublistItem} key={x.id}>
+                            <Link
+                              className={classes.sublistLink}
+                              onClick={() => setShowBurgermenu(false)}
+                              to={{ pathname: x.path, hash: x.hash }}
+                            >
+                              {x.name}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </CSSTransition>
+                </div>
+              )}
             </li>
           );
         })}

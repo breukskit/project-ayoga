@@ -64,6 +64,13 @@ const useStyles = createUseStyles((theme) => ({
       top: '.5rem',
     },
   },
+  submenuList: {
+    background: '#fff',
+    position: 'relative',
+    zIndex: '2',
+    minWidth: '250px',
+    boxShadow: '5px 5px 15px 0px rgba(50, 50, 50, 0.6)',
+  },
   submenuLi: {
     '&:hover': {
       background: '#eee',
@@ -80,6 +87,14 @@ const useStyles = createUseStyles((theme) => ({
     height: '100%',
     width: '100%',
     padding: '.5rem',
+  },
+  overlay: {
+    position: 'fixed',
+    top: '96px',
+    left: '0',
+    width: '100%',
+    height: '100vh',
+    zIndex: '1',
   },
 }));
 
@@ -125,7 +140,7 @@ export const FullsizeNav = () => {
               {x.hasSubMenu ? (
                 <div className={classes.submenu}>
                   {showSub && (
-                    <ul>
+                    <ul className={classes.submenuList}>
                       {methodsSub.map((item) => {
                         return (
                           <li className={classes.submenuLi} key={item.id}>
@@ -146,6 +161,12 @@ export const FullsizeNav = () => {
           );
         })}
       </ul>
+      {showSub && (
+        <div
+          onClick={() => setShowSub(false)}
+          className={classes.overlay}
+        ></div>
+      )}
     </div>
   );
 };

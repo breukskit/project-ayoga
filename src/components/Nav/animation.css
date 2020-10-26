@@ -1,0 +1,58 @@
+.alert-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.alert-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+.alert-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.alert-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.dropdown-container {
+  height: 0;
+  transition: height 350ms ease-in-out;
+  overflow: hidden;
+}
+
+.submenu-enter {
+  opacity: 0;
+}
+.submenu-enter-active {
+  opacity: 1;
+  transition: opacity 400ms;
+}
+.submenu-exit {
+  opacity: 1;
+}
+.submenu-exit-active {
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+.overlay-enter {
+  opacity: 0;
+  transform: translateX(10%);
+}
+.overlay-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 500ms, transform 500ms;
+}
+.overlay-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.overlay-exit-active {
+  opacity: 0;
+  transform: translateX(10%);
+  transition: opacity 500ms, transform 500ms;
+}

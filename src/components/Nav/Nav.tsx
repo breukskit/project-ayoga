@@ -15,6 +15,7 @@ const useStyles = createUseStyles((theme) => ({
     alignItems: 'center',
     minHeight: '96px',
     padding: '1rem',
+    boxShadow: '3px 3px 10px 0px rgba(50, 50, 50, 0.5)',
     '@media(max-width: 766px)': {
       minHeight: '76px',
     },
