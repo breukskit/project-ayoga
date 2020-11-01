@@ -1,54 +1,58 @@
-import React, { useState } from 'react';
-import logo from '../assets/logo2.svg';
+import React, { useState } from "react";
+import logo from "../assets/logo2.svg";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import { createUseStyles, useTheme } from 'react-jss';
+import { createUseStyles, useTheme } from "react-jss";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-import { BurgerMenu } from './BurgerMenu';
+import { BurgerMenu } from "./BurgerMenu";
 
-import { CSSTransition } from 'react-transition-group';
-import './animation.css';
+import { CSSTransition } from "react-transition-group";
+import "./animation.css";
 
 const useStyles = createUseStyles((theme) => ({
   mobileNav: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "1rem",
+    "@media(max-width: 575px)": {
+      padding: ".5rem",
+    },
   },
   bars: {
-    '&:hover': {
-      cursor: 'pointer',
+    "&:hover": {
+      cursor: "pointer",
     },
   },
   logo: {
-    width: '50px',
+    width: "50px",
   },
   header: {
-    textTransform: 'uppercase',
-    fontWeight: '400',
-    fontSize: '26px',
-    letterSpacing: '.1rem',
+    textTransform: "uppercase",
+    fontWeight: "400",
+    fontSize: "26px",
+    letterSpacing: ".1rem",
     color: ({ theme }) => theme.primaryTextColor,
   },
   burgerMenu: {
-    position: 'absolute',
-    top: '76px',
+    position: "absolute",
+    top: "76px",
   },
   overlay: {
-    position: 'fixed',
-    top: '0',
-    left: '360px',
-    height: '100vh',
-    width: '100%',
-    background: 'rgba(0,0,0,0.4)',
-    '@media(max-width: 420px)': {
-      left: '90%',
+    position: "fixed",
+    top: "0",
+    left: "360px",
+    height: "100vh",
+    width: "100%",
+    background: "rgba(0,0,0,0.4)",
+    "@media(max-width: 400px)": {
+      left: "90%",
     },
   },
 }));

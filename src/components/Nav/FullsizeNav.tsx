@@ -1,100 +1,110 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
-import logo from '../assets/logo2.svg';
-import { createUseStyles, useTheme } from 'react-jss';
+import logo from "../assets/logo2.svg";
+import { createUseStyles, useTheme } from "react-jss";
 
-import { menuItems, methodsSub } from './menuItems';
+import { menuItems, methodsSub } from "./menuItems";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = createUseStyles((theme) => ({
   fullsizeNav: {
-    width: '100%',
-    maxWidth: '1180px',
-    margin: 'auto',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    width: "100%",
+    maxWidth: "1180px",
+    margin: "auto",
+    height: "100%",
+    padding: "1rem",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   logo: {
-    width: '50px',
+    width: "50px",
   },
   header: {
-    textTransform: 'uppercase',
-    fontWeight: '400',
-    fontSize: '26px',
-    paddingLeft: '.5rem',
-    letterSpacing: '.1rem',
+    textTransform: "uppercase",
+    fontWeight: "400",
+    fontSize: "26px",
+    paddingLeft: ".5rem",
+    letterSpacing: ".1rem",
     color: ({ theme }) => theme.primaryTextColor,
   },
   left: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
   },
   list: {
-    display: 'flex',
-    justifyContent: 'center',
+    height: "100%",
+    // alignItems: "center",
+    display: "flex",
+    justifyContent: "center",
   },
   listItem: {
+    height: "100%",
+    lineHeight: "64px",
     margin: {
-      right: '.4rem',
-      left: '.4rem',
+      right: ".4rem",
+      left: ".4rem",
+    },
+    "&:hover $submenu": {
+      display: "block",
     },
   },
   link: {
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     color: ({ theme }) => theme.primaryTextColor,
-    letterSpacing: '.09rem',
-    '&:hover': {
+    letterSpacing: ".09rem",
+    "&:hover": {
       color: ({ theme }) => theme.primaryColor,
     },
-    transition: 'all 200ms ease',
+    transition: "all 200ms ease",
   },
   activeLink: {
-    extend: 'link',
+    extend: "link",
     borderBottom: ({ theme }) => `2px solid ${theme.primaryColor}`,
     color: ({ theme }) => theme.primaryColor,
   },
   submenu: {
-    position: 'absolute',
+    position: "absolute",
+    display: "none",
     padding: {
-      top: '.5rem',
+      top: ".5rem",
     },
   },
   submenuList: {
-    background: '#fff',
-    position: 'relative',
-    zIndex: '2',
-    minWidth: '250px',
-    boxShadow: '5px 5px 15px 0px rgba(50, 50, 50, 0.6)',
+    background: "#fff",
+    position: "relative",
+    zIndex: "2",
+    minWidth: "250px",
+    boxShadow: "5px 5px 15px 0px rgba(50, 50, 50, 0.6)",
   },
   submenuLi: {
-    '&:hover': {
-      background: '#eee',
+    lineHeight: "44px",
+    "&:hover": {
+      background: "#eee",
     },
   },
   submenuLink: {
     color: ({ theme }) => theme.primaryTextColor,
-    letterSpacing: '.09rem',
-    '&:hover': {
+    letterSpacing: ".09rem",
+    "&:hover": {
       color: ({ theme }) => theme.primaryColor,
     },
-    transition: 'all 200ms ease',
-    display: 'inline-block',
-    height: '100%',
-    width: '100%',
-    padding: '.5rem',
+    transition: "all 200ms ease",
+    display: "inline-block",
+    height: "100%",
+    width: "100%",
+    padding: ".5rem",
   },
   overlay: {
-    position: 'fixed',
-    top: '96px',
-    left: '0',
-    width: '100%',
-    height: '100vh',
-    zIndex: '1',
+    position: "fixed",
+    top: "96px",
+    left: "0",
+    width: "100%",
+    height: "100vh",
+    zIndex: "1",
   },
 }));
 
@@ -132,14 +142,14 @@ export const FullsizeNav = () => {
                 {x.name}
                 {x.hasSubMenu ? (
                   <span>
-                    {' '}
-                    <FontAwesomeIcon icon={faChevronDown} />{' '}
+                    {" "}
+                    <FontAwesomeIcon icon={faChevronDown} />{" "}
                   </span>
                 ) : null}
               </Link>
               {x.hasSubMenu ? (
                 <div className={classes.submenu}>
-                  {showSub && (
+                  {
                     <ul className={classes.submenuList}>
                       {methodsSub.map((item) => {
                         return (
@@ -154,19 +164,19 @@ export const FullsizeNav = () => {
                         );
                       })}
                     </ul>
-                  )}
+                  }
                 </div>
               ) : null}
             </li>
           );
         })}
       </ul>
-      {showSub && (
+      {/* {showSub && (
         <div
           onClick={() => setShowSub(false)}
           className={classes.overlay}
         ></div>
-      )}
+      )} */}
     </div>
   );
 };
